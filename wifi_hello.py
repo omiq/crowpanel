@@ -7,7 +7,7 @@ time.sleep(1)
 import network
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.connect("garretts", "aaaaaaaaaa")
+wlan.connect("WIFI", "WIFIPASSWORD")
 
 # How many retries?
 retries = 60
