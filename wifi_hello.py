@@ -7,40 +7,29 @@ time.sleep(1)
 import network
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.connect("WIFI", "WIFIPASSWORD")
+wlan.connect("garretts", "aaaaaaaaaa")
 
-# Wait for connect
-max_wait = 10
+# How many retries?
+retries = 60
+
 # wait for connection
-while max_wait > 0:
-    """
-        0   STAT_IDLE -- no connection and no activity,
-        1   STAT_CONNECTING -- connecting in progress,
-        -3  STAT_WRONG_PASSWORD -- failed due to incorrect password,
-        -2  STAT_NO_AP_FOUND -- failed because no access point replied,
-        -1  STAT_CONNECT_FAIL -- failed due to other problems,
-        3   STAT_GOT_IP -- connection successful.
-    """
-    if wlan.status() < 0 or wlan.status() >= 3:
-        # connection successful
+while retries > 0:
+
+    print('waiting for connection... ' + str(retries))
+    time.sleep(4)
+    if wlan.status() == 1010: 
+        # connection successful on ESP32, other devices return different codes!
         break
-    max_wait -= 1
-    print('waiting for connection... ' + str(max_wait))
-    utime.sleep(1)
+    retries -= 1
+
     
-# check connection
-if wlan.status() < 0:
-    # No connection
-    raise RuntimeError('network connection failed')
-    exit(1)
-else:
-    # connection successful
-    print('wlan connected')
-    status = wlan.ifconfig()
-    print('IP address: ' + status[0])
-    print('subnet mask: ' + status[1])
-    print('gateway: ' + status[2])
-    print('DNS server: ' + status[3])
+# connection successful
+print('wlan connected')
+status = wlan.ifconfig()
+print('IP address: ' + status[0])
+print('subnet mask: ' + status[1])
+print('gateway: ' + status[2])
+print('DNS server: ' + status[3])
 
 # E-Paper display
 import CrowPanel as eink
