@@ -9,7 +9,8 @@
 # V0.1.1 Dec 2025 Fixed initialization of screen
 #
 # Released under the MIT License (MIT).
-# Copyright (c) 2025 Ignas Bukys
+# Copyright (c) 2025 Ignas Bukys 
+# https://www.bukys.eu/components/crowpanel_5_79
 
 
 from micropython import const
